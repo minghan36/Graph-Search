@@ -106,8 +106,21 @@ public class Graph<T extends Comparable<T>> {
   }
 
   public boolean isAntiSymmetric() {
-    // TODO: Task 1.
-    throw new UnsupportedOperationException();
+    boolean antiSymmetric = true;
+    for (Edge<T> edge1: edges){
+      for (Edge<T> edge2: edges){
+        if (edge1.getSource().equals(edge2.getDestination()) && edge2.getSource().equals(edge1.getDestination())){
+          antiSymmetric = false;
+          if(edge1.getSource().equals(edge1.getDestination())){
+            antiSymmetric = true;
+          }
+        }
+        if (!antiSymmetric){
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   public boolean isEquivalence() {
