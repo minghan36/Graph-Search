@@ -124,8 +124,11 @@ public class Graph<T extends Comparable<T>> {
   }
 
   public boolean isEquivalence() {
-    // TODO: Task 1.
-    throw new UnsupportedOperationException();
+    if (isReflexive() && isSymmetric() && isTransitive()){
+      return true;
+    } else {
+      return false;
+    }
   }
 
   public Set<T> getEquivalenceClass(T vertex) {
