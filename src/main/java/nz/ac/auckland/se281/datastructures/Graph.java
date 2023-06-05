@@ -1,7 +1,9 @@
 package nz.ac.auckland.se281.datastructures;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * A graph that is composed of a set of verticies and edges.
@@ -21,8 +23,30 @@ public class Graph<T extends Comparable<T>> {
   }
 
   public Set<T> getRoots() {
-    // TODO: Task 1.
-    throw new UnsupportedOperationException();
+    Set<T> roots = new TreeSet<T>(new Comparator<T>() {
+      @Override
+      public int compare(T v1, T v2){
+        int value1 = Integer.parseInt((String) v1);
+        int value2 = Integer.parseInt((String) v2);
+        if (value1<value2){
+          return -1;
+        } else if (value1 == value2){
+          return 0;
+        } else {
+          return 1;
+        }
+      }
+    });
+    int in;
+    int out;
+    for (T vertex: verticies){
+      in = 0;
+      out = 0;
+      for (Edge<T> edge: edges){
+
+      }
+    }
+    return roots;
   }
 
   public boolean isReflexive() {
