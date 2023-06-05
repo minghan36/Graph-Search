@@ -50,8 +50,20 @@ public class Graph<T extends Comparable<T>> {
   }
 
   public boolean isReflexive() {
-    // TODO: Task 1.
-    throw new UnsupportedOperationException();
+    boolean reflexive;
+    for (T vertex: verticies){
+      reflexive = false;
+      for (Edge<T> edge: edges){
+        if (edge.getSource().equals(vertex) && edge.getDestination().equals(vertex)){
+          reflexive = true;
+          continue;
+        }
+      }
+      if (!reflexive){
+        return false;
+      }
+    }
+    return true;
   }
 
   public boolean isSymmetric() {
