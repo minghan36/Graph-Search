@@ -42,8 +42,20 @@ public class Graph<T extends Comparable<T>> {
     for (T vertex: verticies){
       in = 0;
       out = 0;
-      for (Edge<T> edge: edges){
-
+      if (getEquivalenceClass(vertex).isEmpty()){
+        for (Edge<T> edge: edges){
+          if (edge.getSource().equals(vertex)){
+            out++;
+          }
+          if (edge.getDestination().equals(vertex)){
+            in++;
+          }
+        }
+        if (in == 0 && out > 0){
+          roots.add(vertex);
+        }
+      } else {
+        roots.add(getEquivalenceClass(vertex).iterator().next());
       }
     }
     return roots;
