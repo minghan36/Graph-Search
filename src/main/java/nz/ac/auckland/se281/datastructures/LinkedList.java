@@ -52,4 +52,8 @@ public class LinkedList<T> implements List<T> {
         }
     }
 
+    public int getSize(){
+        return size;
+    }
+
 }

@@ -9,4 +9,6 @@ public interface List<T> {
 
     public void remove(int pos);
 
+    public int getSize();
+
 }
