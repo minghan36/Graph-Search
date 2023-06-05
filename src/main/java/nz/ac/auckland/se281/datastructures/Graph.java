@@ -131,9 +131,45 @@ public class Graph<T extends Comparable<T>> {
     }
   }
 
-  public Set<T> getEquivalenceClass(T vertex) {
-    // TODO: Task 1.
-    throw new UnsupportedOperationException();
+  public Set<T> getEquivalenceClass(T vertex) {    
+    Set<T> equivalenceClass = new TreeSet<T>(new Comparator<T>() {
+      @Override
+      public int compare(T v1, T v2){
+        int value1 = Integer.parseInt((String) v1);
+        int value2 = Integer.parseInt((String) v2);
+        if (value1<value2){
+          return -1;
+        } else if (value1 == value2){
+          return 0;
+        } else {
+          return 1;
+        }
+      }
+    });
+
+    if (!isEquivalence()){
+      return equivalenceClass;
+    }
+
+    equivalenceClass.add(vertex);
+    
+    boolean finish = false;
+
+    while (!finish){
+      finish = true;
+      for (Edge<T> edge1: edges){
+        if (equivalenceClass.contains(edge1.getSource()) && !equivalenceClass.contains(edge1.getDestination())){
+          equivalenceClass.add(edge1.getDestination());
+          finish = false;
+        }
+        if (equivalenceClass.contains(edge1.getDestination()) && !equivalenceClass.contains(edge1.getSource())){
+          equivalenceClass.add(edge1.getSource());
+          finish = false;
+        }
+      }
+    }
+
+    return equivalenceClass;
   }
 
   public List<T> iterativeBreadthFirstSearch() {
