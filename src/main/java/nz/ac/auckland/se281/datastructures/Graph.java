@@ -67,8 +67,20 @@ public class Graph<T extends Comparable<T>> {
   }
 
   public boolean isSymmetric() {
-    // TODO: Task 1.
-    throw new UnsupportedOperationException();
+    boolean symmetric;
+    for (Edge<T> edge1: edges){
+      symmetric = false;
+      for (Edge<T> edge2: edges){
+        if (edge1.getSource().equals(edge2.getDestination()) && edge2.getSource().equals(edge1.getDestination())){
+          symmetric = true;
+          continue;
+        }
+      }
+      if (!symmetric){
+        return false;
+      }
+    }
+    return true;
   }
 
   public boolean isTransitive() {
