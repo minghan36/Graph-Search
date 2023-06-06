@@ -31,6 +31,10 @@ public class LinkedList<T> implements List<T> {
     public T fetch(int pos){
     if (pos>=size){
         return null;
+    } else if(pos == 0){
+        return head.getValue();
+    } else if(pos == (size-1)){
+        return tail.getValue();
     }
     int currentIndex = 0;
     Node<T> currentNode = head;
@@ -45,10 +49,12 @@ public class LinkedList<T> implements List<T> {
     public void remove(int pos){
         if (pos == 0){
             head = head.getNext();
+            size--;
             return;
         }
         if (pos == (size-1)){
             tail = tail.getPrev();
+            size--;
         }
     }
 

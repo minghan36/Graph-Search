@@ -10,8 +10,5 @@ public interface Queue<T> {
 
     public void enqueue(T element);
 
-    public T dqueue();
-
-    public void print();
-
+    public T dequeue();
 }
