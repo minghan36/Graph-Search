@@ -15,8 +15,8 @@ import java.util.TreeSet;
  */
 public class Graph<T extends Comparable<T>> {
 
- private Set<T> verticies;
- private Set<Edge<T>> edges;
+  private Set<T> verticies;
+  private Set<Edge<T>> edges;
 
   public Graph(Set<T> verticies, Set<Edge<T>> edges) {
     this.verticies = verticies;
@@ -24,35 +24,37 @@ public class Graph<T extends Comparable<T>> {
   }
 
   public Set<T> getRoots() {
-    Set<T> roots = new TreeSet<T>(new Comparator<T>() {
-      @Override
-      public int compare(T v1, T v2){
-        int value1 = Integer.parseInt((String) v1);
-        int value2 = Integer.parseInt((String) v2);
-        if (value1<value2){
-          return -1;
-        } else if (value1 == value2){
-          return 0;
-        } else {
-          return 1;
-        }
-      }
-    });
+    Set<T> roots =
+        new TreeSet<T>(
+            new Comparator<T>() {
+              @Override
+              public int compare(T v1, T v2) {
+                int value1 = Integer.parseInt((String) v1);
+                int value2 = Integer.parseInt((String) v2);
+                if (value1 < value2) {
+                  return -1;
+                } else if (value1 == value2) {
+                  return 0;
+                } else {
+                  return 1;
+                }
+              }
+            });
     int in;
     int out;
-    for (T vertex: verticies){
+    for (T vertex : verticies) {
       in = 0;
       out = 0;
-      if (getEquivalenceClass(vertex).isEmpty()){
-        for (Edge<T> edge: edges){
-          if (edge.getSource().equals(vertex)){
+      if (getEquivalenceClass(vertex).isEmpty()) {
+        for (Edge<T> edge : edges) {
+          if (edge.getSource().equals(vertex)) {
             out++;
           }
-          if (edge.getDestination().equals(vertex)){
+          if (edge.getDestination().equals(vertex)) {
             in++;
           }
         }
-        if (in == 0 && out > 0){
+        if (in == 0 && out > 0) {
           roots.add(vertex);
         }
       } else {
@@ -64,15 +66,15 @@ public class Graph<T extends Comparable<T>> {
 
   public boolean isReflexive() {
     boolean reflexive;
-    for (T vertex: verticies){
+    for (T vertex : verticies) {
       reflexive = false;
-      for (Edge<T> edge: edges){
-        if (edge.getSource().equals(vertex) && edge.getDestination().equals(vertex)){
+      for (Edge<T> edge : edges) {
+        if (edge.getSource().equals(vertex) && edge.getDestination().equals(vertex)) {
           reflexive = true;
           continue;
         }
       }
-      if (!reflexive){
+      if (!reflexive) {
         return false;
       }
     }
@@ -81,15 +83,16 @@ public class Graph<T extends Comparable<T>> {
 
   public boolean isSymmetric() {
     boolean symmetric;
-    for (Edge<T> edge1: edges){
+    for (Edge<T> edge1 : edges) {
       symmetric = false;
-      for (Edge<T> edge2: edges){
-        if (edge1.getSource().equals(edge2.getDestination()) && edge2.getSource().equals(edge1.getDestination())){
+      for (Edge<T> edge2 : edges) {
+        if (edge1.getSource().equals(edge2.getDestination())
+            && edge2.getSource().equals(edge1.getDestination())) {
           symmetric = true;
           continue;
         }
       }
-      if (!symmetric){
+      if (!symmetric) {
         return false;
       }
     }
@@ -99,36 +102,38 @@ public class Graph<T extends Comparable<T>> {
   public boolean isTransitive() {
     boolean transitive;
     T source;
-    for (Edge<T> edge1: edges){
-    source = edge1.getSource();
-    for (Edge<T> edge2: edges){
-      if (edge2.getSource().equals(edge1.getDestination())){
-        transitive = false;
-        for (Edge<T> edge3: edges){
-          if (source.equals(edge3.getSource()) && edge2.getDestination().equals(edge3.getDestination())){
-            transitive = true;
+    for (Edge<T> edge1 : edges) {
+      source = edge1.getSource();
+      for (Edge<T> edge2 : edges) {
+        if (edge2.getSource().equals(edge1.getDestination())) {
+          transitive = false;
+          for (Edge<T> edge3 : edges) {
+            if (source.equals(edge3.getSource())
+                && edge2.getDestination().equals(edge3.getDestination())) {
+              transitive = true;
+            }
           }
-        }
-        if (!transitive){
-          return false;
+          if (!transitive) {
+            return false;
+          }
         }
       }
     }
-  }
     return true;
   }
 
   public boolean isAntiSymmetric() {
     boolean antiSymmetric = true;
-    for (Edge<T> edge1: edges){
-      for (Edge<T> edge2: edges){
-        if (edge1.getSource().equals(edge2.getDestination()) && edge2.getSource().equals(edge1.getDestination())){
+    for (Edge<T> edge1 : edges) {
+      for (Edge<T> edge2 : edges) {
+        if (edge1.getSource().equals(edge2.getDestination())
+            && edge2.getSource().equals(edge1.getDestination())) {
           antiSymmetric = false;
-          if(edge1.getSource().equals(edge1.getDestination())){
+          if (edge1.getSource().equals(edge1.getDestination())) {
             antiSymmetric = true;
           }
         }
-        if (!antiSymmetric){
+        if (!antiSymmetric) {
           return false;
         }
       }
@@ -137,45 +142,49 @@ public class Graph<T extends Comparable<T>> {
   }
 
   public boolean isEquivalence() {
-    if (isReflexive() && isSymmetric() && isTransitive()){
+    if (isReflexive() && isSymmetric() && isTransitive()) {
       return true;
     } else {
       return false;
     }
   }
 
-  public Set<T> getEquivalenceClass(T vertex) {    
-    Set<T> equivalenceClass = new TreeSet<T>(new Comparator<T>() {
-      @Override
-      public int compare(T v1, T v2){
-        int value1 = Integer.parseInt((String) v1);
-        int value2 = Integer.parseInt((String) v2);
-        if (value1<value2){
-          return -1;
-        } else if (value1 == value2){
-          return 0;
-        } else {
-          return 1;
-        }
-      }
-    });
+  public Set<T> getEquivalenceClass(T vertex) {
+    Set<T> equivalenceClass =
+        new TreeSet<T>(
+            new Comparator<T>() {
+              @Override
+              public int compare(T v1, T v2) {
+                int value1 = Integer.parseInt((String) v1);
+                int value2 = Integer.parseInt((String) v2);
+                if (value1 < value2) {
+                  return -1;
+                } else if (value1 == value2) {
+                  return 0;
+                } else {
+                  return 1;
+                }
+              }
+            });
 
-    if (!isEquivalence()){
+    if (!isEquivalence()) {
       return equivalenceClass;
     }
 
     equivalenceClass.add(vertex);
-    
+
     boolean finish = false;
 
-    while (!finish){
+    while (!finish) {
       finish = true;
-      for (Edge<T> edge1: edges){
-        if (equivalenceClass.contains(edge1.getSource()) && !equivalenceClass.contains(edge1.getDestination())){
+      for (Edge<T> edge1 : edges) {
+        if (equivalenceClass.contains(edge1.getSource())
+            && !equivalenceClass.contains(edge1.getDestination())) {
           equivalenceClass.add(edge1.getDestination());
           finish = false;
         }
-        if (equivalenceClass.contains(edge1.getDestination()) && !equivalenceClass.contains(edge1.getSource())){
+        if (equivalenceClass.contains(edge1.getDestination())
+            && !equivalenceClass.contains(edge1.getSource())) {
           equivalenceClass.add(edge1.getSource());
           finish = false;
         }
@@ -189,20 +198,20 @@ public class Graph<T extends Comparable<T>> {
     List<T> visited = new ArrayList<T>();
     Queue<T> queue = new VertexQueue<T>();
     Set<T> roots = getRoots();
-    for (T root:roots){
-    queue.enqueue(root);
+    for (T root : roots) {
+      queue.enqueue(root);
     }
-    while (!queue.isEmpty()){
+    while (!queue.isEmpty()) {
       Set<T> temp = BFSHelper(queue.front(), visited);
-      for (T vertex: temp){
+      for (T vertex : temp) {
         queue.enqueue(vertex);
       }
-    
-    if(visited.contains(queue.front())){
-      queue.dequeue();
-    } else{
-    visited.add(queue.dequeue());
-    }
+
+      if (visited.contains(queue.front())) {
+        queue.dequeue();
+      } else {
+        visited.add(queue.dequeue());
+      }
     }
     return visited;
   }
@@ -211,35 +220,37 @@ public class Graph<T extends Comparable<T>> {
     List<T> visited = new ArrayList<T>();
     Stack<T> stack = new VertexStack<T>();
     Set<T> roots = getRoots();
-    Set<T> set = new TreeSet<T>(new Comparator<T>() {
-      @Override
-      public int compare(T v1, T v2){
-        int value1 = Integer.parseInt((String) v1);
-        int value2 = Integer.parseInt((String) v2);
-        if (value1>value2){
-          return -1;
-        } else if (value1 == value2){
-          return 0;
-        } else {
-          return 1;
-        }
-      }
-    });
-    for (T root:roots){
+    Set<T> set =
+        new TreeSet<T>(
+            new Comparator<T>() {
+              @Override
+              public int compare(T v1, T v2) {
+                int value1 = Integer.parseInt((String) v1);
+                int value2 = Integer.parseInt((String) v2);
+                if (value1 > value2) {
+                  return -1;
+                } else if (value1 == value2) {
+                  return 0;
+                } else {
+                  return 1;
+                }
+              }
+            });
+    for (T root : roots) {
       set.add(root);
-      }
-    for (T root:set){
+    }
+    for (T root : set) {
       stack.push(root);
     }
 
-    while (!stack.isEmpty()){
+    while (!stack.isEmpty()) {
       Set<T> temp = DFSHelper(stack.peek(), visited);
-      if(visited.contains(stack.peek())){
+      if (visited.contains(stack.peek())) {
         stack.pop();
       } else {
         visited.add(stack.pop());
       }
-      for (T vertex: temp){
+      for (T vertex : temp) {
         stack.push(vertex);
       }
     }
@@ -251,61 +262,64 @@ public class Graph<T extends Comparable<T>> {
     List<T> visited = new ArrayList<T>();
     Queue<T> queue = new VertexQueue<T>();
     Set<T> roots = getRoots();
-    for (T root:roots){
+    for (T root : roots) {
       queue.enqueue(root);
     }
 
     return BFSRecursive(visited, queue);
-      
   }
 
   public List<T> recursiveDepthFirstSearch() {
     List<T> visited = new ArrayList<T>();
     Stack<T> stack = new VertexStack<T>();
     Set<T> roots = getRoots();
-    Set<T> set = new TreeSet<T>(new Comparator<T>() {
-      @Override
-      public int compare(T v1, T v2){
-        int value1 = Integer.parseInt((String) v1);
-        int value2 = Integer.parseInt((String) v2);
-        if (value1>value2){
-          return -1;
-        } else if (value1 == value2){
-          return 0;
-        } else {
-          return 1;
-        }
-      }
-    });
-    for (T root:roots){
+    Set<T> set =
+        new TreeSet<T>(
+            new Comparator<T>() {
+              @Override
+              public int compare(T v1, T v2) {
+                int value1 = Integer.parseInt((String) v1);
+                int value2 = Integer.parseInt((String) v2);
+                if (value1 > value2) {
+                  return -1;
+                } else if (value1 == value2) {
+                  return 0;
+                } else {
+                  return 1;
+                }
+              }
+            });
+    for (T root : roots) {
       set.add(root);
-      }
-    for (T root:set){
+    }
+    for (T root : set) {
       stack.push(root);
     }
 
     return DFSRecursive(visited, stack);
   }
 
-  private Set<T> BFSHelper(T vertex, List<T> visited){
-    Set<T> set = new TreeSet<T>(new Comparator<T>() {
-      @Override
-      public int compare(T v1, T v2){
-        int value1 = Integer.parseInt((String) v1);
-        int value2 = Integer.parseInt((String) v2);
-        if (value1<value2){
-          return -1;
-        } else if (value1 == value2){
-          return 0;
-        } else {
-          return 1;
-        }
-      }
-    });
+  private Set<T> BFSHelper(T vertex, List<T> visited) {
+    Set<T> set =
+        new TreeSet<T>(
+            new Comparator<T>() {
+              @Override
+              public int compare(T v1, T v2) {
+                int value1 = Integer.parseInt((String) v1);
+                int value2 = Integer.parseInt((String) v2);
+                if (value1 < value2) {
+                  return -1;
+                } else if (value1 == value2) {
+                  return 0;
+                } else {
+                  return 1;
+                }
+              }
+            });
 
-    for (Edge<T> edge: edges){
-      if (edge.getSource().equals(vertex) && !edge.getDestination().equals(vertex)){
-        if (visited.contains(edge.getDestination())){
+    for (Edge<T> edge : edges) {
+      if (edge.getSource().equals(vertex) && !edge.getDestination().equals(vertex)) {
+        if (visited.contains(edge.getDestination())) {
           continue;
         }
         set.add(edge.getDestination());
@@ -315,25 +329,27 @@ public class Graph<T extends Comparable<T>> {
     return set;
   }
 
-  private Set<T> DFSHelper(T vertex, List<T> visited){
-    Set<T> set = new TreeSet<T>(new Comparator<T>() {
-      @Override
-      public int compare(T v1, T v2){
-        int value1 = Integer.parseInt((String) v1);
-        int value2 = Integer.parseInt((String) v2);
-        if (value1>value2){
-          return -1;
-        } else if (value1 == value2){
-          return 0;
-        } else {
-          return 1;
-        }
-      }
-    });
+  private Set<T> DFSHelper(T vertex, List<T> visited) {
+    Set<T> set =
+        new TreeSet<T>(
+            new Comparator<T>() {
+              @Override
+              public int compare(T v1, T v2) {
+                int value1 = Integer.parseInt((String) v1);
+                int value2 = Integer.parseInt((String) v2);
+                if (value1 > value2) {
+                  return -1;
+                } else if (value1 == value2) {
+                  return 0;
+                } else {
+                  return 1;
+                }
+              }
+            });
 
-    for (Edge<T> edge: edges){
-      if (edge.getSource().equals(vertex) && !edge.getDestination().equals(vertex)){
-        if (visited.contains(edge.getDestination())){
+    for (Edge<T> edge : edges) {
+      if (edge.getSource().equals(vertex) && !edge.getDestination().equals(vertex)) {
+        if (visited.contains(edge.getDestination())) {
           continue;
         }
         set.add(edge.getDestination());
@@ -343,16 +359,16 @@ public class Graph<T extends Comparable<T>> {
     return set;
   }
 
-  private List<T> BFSRecursive (List<T> visited, Queue<T> queue){
-    if(queue.isEmpty()){
+  private List<T> BFSRecursive(List<T> visited, Queue<T> queue) {
+    if (queue.isEmpty()) {
       return visited;
     } else {
       Set<T> temp = BFSHelper(queue.front(), visited);
-      for (T vertex: temp){
-      queue.enqueue(vertex);
+      for (T vertex : temp) {
+        queue.enqueue(vertex);
       }
 
-      if(visited.contains(queue.front())){
+      if (visited.contains(queue.front())) {
         queue.dequeue();
         return visited;
       } else {
@@ -362,17 +378,17 @@ public class Graph<T extends Comparable<T>> {
     }
   }
 
-  private List<T> DFSRecursive(List<T> visited, Stack<T> stack){
-    if(stack.isEmpty()){
+  private List<T> DFSRecursive(List<T> visited, Stack<T> stack) {
+    if (stack.isEmpty()) {
       return visited;
     } else {
       Set<T> temp = DFSHelper(stack.peek(), visited);
-      if(visited.contains(stack.peek())){
+      if (visited.contains(stack.peek())) {
         stack.pop();
       } else {
         visited.add(stack.pop());
       }
-      for (T vertex: temp){
+      for (T vertex : temp) {
         stack.push(vertex);
       }
       return DFSRecursive(visited, stack);

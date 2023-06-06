@@ -2,13 +2,13 @@ package nz.ac.auckland.se281.datastructures;
 
 public interface Stack<T> {
 
-    public int size();
+  public int size();
 
-    public boolean isEmpty();
+  public boolean isEmpty();
 
-    public T peek();
+  public T peek();
 
-    public void push(T element);
+  public void push(T element);
 
-    public T pop();
+  public T pop();
 }
