@@ -248,8 +248,15 @@ public class Graph<T extends Comparable<T>> {
   }
 
   public List<T> recursiveBreadthFirstSearch() {
-    // TODO: Task 3.
-    throw new UnsupportedOperationException();
+    List<T> visited = new ArrayList<T>();
+    Queue<T> queue = new VertexQueue<T>();
+    Set<T> roots = getRoots();
+    for (T root:roots){
+      queue.enqueue(root);
+    }
+
+    return BFSRecursive(visited, queue);
+      
   }
 
   public List<T> recursiveDepthFirstSearch() {
@@ -257,7 +264,7 @@ public class Graph<T extends Comparable<T>> {
     throw new UnsupportedOperationException();
   }
 
-  public Set<T> BFSHelper(T vertex, List<T> visited){
+  private Set<T> BFSHelper(T vertex, List<T> visited){
     Set<T> set = new TreeSet<T>(new Comparator<T>() {
       @Override
       public int compare(T v1, T v2){
@@ -285,7 +292,7 @@ public class Graph<T extends Comparable<T>> {
     return set;
   }
 
-  public Set<T> DFSHelper(T vertex, List<T> visited){
+  private Set<T> DFSHelper(T vertex, List<T> visited){
     Set<T> set = new TreeSet<T>(new Comparator<T>() {
       @Override
       public int compare(T v1, T v2){
@@ -311,5 +318,24 @@ public class Graph<T extends Comparable<T>> {
     }
 
     return set;
+  }
+
+  private List<T> BFSRecursive (List<T> visited, Queue<T> queue){
+    if(queue.isEmpty()){
+      return visited;
+    } else {
+      Set<T> temp = BFSHelper(queue.front(), visited);
+      for (T vertex: temp){
+      queue.enqueue(vertex);
+      }
+
+      if(visited.contains(queue.front())){
+        queue.dequeue();
+        return visited;
+      } else {
+        visited.add(queue.dequeue());
+        return BFSRecursive(visited, queue);
+      }
+    }
   }
 }
