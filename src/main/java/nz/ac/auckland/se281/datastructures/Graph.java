@@ -208,8 +208,43 @@ public class Graph<T extends Comparable<T>> {
   }
 
   public List<T> iterativeDepthFirstSearch() {
-    // TODO: Task 2.
-    throw new UnsupportedOperationException();
+    List<T> visited = new ArrayList<T>();
+    Stack<T> stack = new VertexStack<T>();
+    Set<T> roots = getRoots();
+    Set<T> set = new TreeSet<T>(new Comparator<T>() {
+      @Override
+      public int compare(T v1, T v2){
+        int value1 = Integer.parseInt((String) v1);
+        int value2 = Integer.parseInt((String) v2);
+        if (value1>value2){
+          return -1;
+        } else if (value1 == value2){
+          return 0;
+        } else {
+          return 1;
+        }
+      }
+    });
+    for (T root:roots){
+      set.add(root);
+      }
+
+    for (T root:set){
+      stack.push(root);
+    }
+    while (!stack.isEmpty()){
+      Set<T> temp = DFSHelper(stack.peek(), visited);
+      if(visited.contains(stack.peek())){
+        stack.pop();
+      } else {
+        visited.add(stack.pop());
+      }
+      for (T vertex: temp){
+        stack.push(vertex);
+      }
+    }
+
+    return visited;
   }
 
   public List<T> recursiveBreadthFirstSearch() {
@@ -229,6 +264,34 @@ public class Graph<T extends Comparable<T>> {
         int value1 = Integer.parseInt((String) v1);
         int value2 = Integer.parseInt((String) v2);
         if (value1<value2){
+          return -1;
+        } else if (value1 == value2){
+          return 0;
+        } else {
+          return 1;
+        }
+      }
+    });
+
+    for (Edge<T> edge: edges){
+      if (edge.getSource().equals(vertex) && !edge.getDestination().equals(vertex)){
+        if (visited.contains(edge.getDestination())){
+          continue;
+        }
+        set.add(edge.getDestination());
+      }
+    }
+
+    return set;
+  }
+
+  public Set<T> DFSHelper(T vertex, List<T> visited){
+    Set<T> set = new TreeSet<T>(new Comparator<T>() {
+      @Override
+      public int compare(T v1, T v2){
+        int value1 = Integer.parseInt((String) v1);
+        int value2 = Integer.parseInt((String) v2);
+        if (value1>value2){
           return -1;
         } else if (value1 == value2){
           return 0;
