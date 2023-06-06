@@ -1,5 +1,6 @@
 package nz.ac.auckland.se281.datastructures;
 
+/** Building blocks of the LinkedList. */
 public class Node<T> {
   private T val;
   private Node<T> next;
@@ -9,6 +10,11 @@ public class Node<T> {
 
   public Node() {}
 
+  /**
+   * Constuctor for a node that sets the intended value and the next and previous node to null.
+   *
+   * @param v Intended value for the node.
+   */
   public Node(T v) {
     val = v;
     next = null;

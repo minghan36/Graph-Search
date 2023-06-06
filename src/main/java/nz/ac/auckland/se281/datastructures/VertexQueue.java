@@ -21,7 +21,11 @@ public class VertexQueue<T> implements Queue<T> {
     return false;
   }
 
-  /** Returns the front value of the queue without removing the node. */
+  /**
+   * Returns the front value of the queue without removing the node.
+   *
+   * @return value of the front node.
+   */
   @Override
   public T front() {
     return queue.fetch(0);
@@ -30,7 +34,7 @@ public class VertexQueue<T> implements Queue<T> {
   /**
    * Adds the desired element to the end of the queue.
    *
-   * @param element Desired element to be stored
+   * @param element Desired element to be stored.
    */
   @Override
   @SuppressWarnings("unchecked")
@@ -39,7 +43,11 @@ public class VertexQueue<T> implements Queue<T> {
     queue.append(((T) element));
   }
 
-  /** Returns the first element in the queue and removes the element from the queue. */
+  /**
+   * Returns the first element in the queue and removes the element from the queue.
+   *
+   * @return value of the front node.
+   */
   @Override
   public T dequeue() {
 

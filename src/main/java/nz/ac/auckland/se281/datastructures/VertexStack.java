@@ -1,5 +1,6 @@
 package nz.ac.auckland.se281.datastructures;
 
+/** A stack of verticies that is either the source or destination of an edge. */
 public class VertexStack<T> implements Stack<T> {
 
   private List<T> stack;
@@ -22,23 +23,31 @@ public class VertexStack<T> implements Stack<T> {
     }
   }
 
-  /** Returns to last value in the stack without removing the node from the linkedlist. */
+  /**
+   * Returns to last value in the stack without removing the node from the linkedlist.
+   *
+   * @return Value of top node.
+   */
   @Override
   public T peek() {
     return stack.fetch((size() - 1));
   }
 
   /**
-   * Adds desired element to the end of the stack
+   * Adds desired element to the end of the stack.
    *
-   * @param element Desired element to be stored
+   * @param element Desired element to be stored.
    */
   @Override
   public void push(T element) {
     stack.append(element);
   }
 
-  /** Returns the last element in the stack and removes the element from the stack. */
+  /**
+   * Returns the last element in the stack and removes the element from the stack.
+   *
+   * @return value of top node.
+   */
   @Override
   public T pop() {
     T last = peek();

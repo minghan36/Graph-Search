@@ -1,10 +1,12 @@
 package nz.ac.auckland.se281.datastructures;
 
+/** Implements the interface List and to be used to construct the Stack and Queue. */
 public class LinkedList<T> implements List<T> {
   private Node<T> head;
   private Node<T> tail;
   private int size;
 
+  /** Constructor for LinkedList that sets nodes to null and size to 0. */
   public LinkedList() {
     head = null;
     tail = null;
@@ -15,7 +17,7 @@ public class LinkedList<T> implements List<T> {
    * Creates a node for the new data and attaches to the beginning of the linked list. New Node
    * becomes the head and sets previous head as the next node.
    *
-   * @param data data that is being stored in the node
+   * @param data data that is being stored in the node.
    */
   public void prepend(T data) {
     Node<T> n = new Node<T>(data);
@@ -28,7 +30,7 @@ public class LinkedList<T> implements List<T> {
    * Creates a node for the new data and attaches to the end of the linked list. New Node becomes
    * the tail and sets previous tail as the previous node.
    *
-   * @param data data that is being stored in the node
+   * @param data data that is being stored in the node.
    */
   public void append(T data) {
     Node<T> n = new Node<T>(data);
@@ -48,7 +50,8 @@ public class LinkedList<T> implements List<T> {
    * currentindex of a node and iterating until the desired index is reached. If the desired
    * position is either the head or tail, method will avoid iterating through the linkedlist.
    *
-   * @param pos desired index in the linkedlist
+   * @param pos desired index in the linkedlist.
+   * @return Value of the Node in position 'pos'.
    */
   public T fetch(int pos) {
     if (pos >= size) {
@@ -73,7 +76,7 @@ public class LinkedList<T> implements List<T> {
    * be set to null. If input matches the position of the tail, the tail will be set as the previous
    * node, and next node set to null for new node.
    *
-   * @param pos Desired position, either head or tail
+   * @param pos Desired position, either head or tail.
    */
   public void remove(int pos) {
     if (pos == 0) {
@@ -93,7 +96,11 @@ public class LinkedList<T> implements List<T> {
     }
   }
 
-  /** Returns size of linkedlist (how many nodes there are) */
+  /**
+   * Returns size of linkedlist (how many nodes there are).
+   *
+   * @return size of linkedlist.
+   */
   public int getSize() {
     return size;
   }

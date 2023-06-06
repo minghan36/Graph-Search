@@ -1,5 +1,6 @@
 package nz.ac.auckland.se281.datastructures;
 
+/** List interface that will be implemented by the LinkedList. */
 public interface List<T> {
   public void append(T item);
 
