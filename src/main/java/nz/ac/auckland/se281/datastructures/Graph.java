@@ -36,6 +36,7 @@ public class Graph<T extends Comparable<T>> {
             new Comparator<T>() {
               @Override
               public int compare(T v1, T v2) {
+                // Changes Generic Type to Integer type to be compared mathematically.
                 int value1 = Integer.parseInt((String) v1);
                 int value2 = Integer.parseInt((String) v2);
                 if (value1 < value2) {
@@ -163,6 +164,8 @@ public class Graph<T extends Comparable<T>> {
    */
   public boolean isAntiSymmetric() {
     boolean antiSymmetric = true;
+    // Iterates through edges to check if an edge has a corresponding edge where the source and
+    // destination verticies are not the same.
     for (Edge<T> edge1 : edges) {
       for (Edge<T> edge2 : edges) {
         if (edge1.getSource().equals(edge2.getDestination())
@@ -207,6 +210,7 @@ public class Graph<T extends Comparable<T>> {
             new Comparator<T>() {
               @Override
               public int compare(T v1, T v2) {
+                // Changes Generic Type to Integer type to be compared mathematically.
                 int value1 = Integer.parseInt((String) v1);
                 int value2 = Integer.parseInt((String) v2);
                 if (value1 < value2) {
@@ -294,6 +298,7 @@ public class Graph<T extends Comparable<T>> {
             new Comparator<T>() {
               @Override
               public int compare(T v1, T v2) {
+                // Changes Generic Type to Integer type to be compared mathematically.
                 int value1 = Integer.parseInt((String) v1);
                 int value2 = Integer.parseInt((String) v2);
                 if (value1 > value2) {
@@ -360,6 +365,7 @@ public class Graph<T extends Comparable<T>> {
             new Comparator<T>() {
               @Override
               public int compare(T v1, T v2) {
+                // Changes Generic Type to Integer type to be compared mathematically.
                 int value1 = Integer.parseInt((String) v1);
                 int value2 = Integer.parseInt((String) v2);
                 if (value1 > value2) {
@@ -396,6 +402,7 @@ public class Graph<T extends Comparable<T>> {
             new Comparator<T>() {
               @Override
               public int compare(T v1, T v2) {
+                // Changes Generic Type to Integer type to be compared mathematically.
                 int value1 = Integer.parseInt((String) v1);
                 int value2 = Integer.parseInt((String) v2);
                 if (value1 < value2) {
@@ -437,6 +444,7 @@ public class Graph<T extends Comparable<T>> {
             new Comparator<T>() {
               @Override
               public int compare(T v1, T v2) {
+                // Changes Generic Type to Integer type to be compared mathematically.
                 int value1 = Integer.parseInt((String) v1);
                 int value2 = Integer.parseInt((String) v2);
                 if (value1 > value2) {

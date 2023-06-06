@@ -35,6 +35,7 @@ public class LinkedList<T> implements List<T> {
   public void append(T data) {
     Node<T> n = new Node<T>(data);
     n.setPrev(tail);
+    // Sets both head and tail to the new node if the node is the first in the LinkedList.
     if (size == 0) {
       head = n;
     }
@@ -54,6 +55,7 @@ public class LinkedList<T> implements List<T> {
    * @return Value of the Node in position 'pos'.
    */
   public T fetch(int pos) {
+    // checks validity of requested position and whether the requested node is the Head or Tail.
     if (pos >= size) {
       return null;
     } else if (pos == 0) {
@@ -61,6 +63,7 @@ public class LinkedList<T> implements List<T> {
     } else if (pos == (size - 1)) {
       return tail.getValue();
     }
+    // Iterates to find desired node.
     int currentIndex = 0;
     Node<T> currentNode = head;
     while (!(currentIndex == pos)) {
@@ -79,6 +82,8 @@ public class LinkedList<T> implements List<T> {
    * @param pos Desired position, either head or tail.
    */
   public void remove(int pos) {
+    // If statements checking whether the head or the tail is to be removed. Also replaces the head
+    // or tail and changes the next/prev value in the new head/tail.
     if (pos == 0) {
       head = head.getNext();
       if (head != null) {

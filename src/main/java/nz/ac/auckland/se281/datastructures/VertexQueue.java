@@ -1,5 +1,6 @@
 package nz.ac.auckland.se281.datastructures;
 
+/** Queue of verticies that are either the source or destination of an edge. */
 public class VertexQueue<T> implements Queue<T> {
 
   private List<T> queue;
