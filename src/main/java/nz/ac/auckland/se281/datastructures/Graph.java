@@ -23,7 +23,12 @@ public class Graph<T extends Comparable<T>> {
     this.edges = edges;
   }
 
+  /**
+   * Returns the roots of the graph. Checks is any of the verticies have an in degree of 0 and out
+   * degree > 0 OR finds the least value in an EquivalenceClass.
+   */
   public Set<T> getRoots() {
+    // Comparator set to sort from least to highest integer value.
     Set<T> roots =
         new TreeSet<T>(
             new Comparator<T>() {
@@ -64,6 +69,10 @@ public class Graph<T extends Comparable<T>> {
     return roots;
   }
 
+  /**
+   * Checks reflexivity of the graph. Iterates through all the verticies and returns false if there
+   * is no edge where the source and destination are both equal to the vertex.
+   */
   public boolean isReflexive() {
     boolean reflexive;
     for (T vertex : verticies) {
@@ -81,6 +90,11 @@ public class Graph<T extends Comparable<T>> {
     return true;
   }
 
+  /**
+   * Checks symmetry of graph. Iterates through edges and returns false if an edge does not have a
+   * corresponding edge where the new source = original destination and new destination = original
+   * source.
+   */
   public boolean isSymmetric() {
     boolean symmetric;
     for (Edge<T> edge1 : edges) {
@@ -99,6 +113,10 @@ public class Graph<T extends Comparable<T>> {
     return true;
   }
 
+  /**
+   * Checks transitivity of graph. Iterates through edges, returns false if there is not a single
+   * edge that represents the original source and final destination of two connected edges.
+   */
   public boolean isTransitive() {
     boolean transitive;
     T source;
@@ -122,6 +140,10 @@ public class Graph<T extends Comparable<T>> {
     return true;
   }
 
+  /**
+   * Checks antisymmetry of graph. Iterates through edges, returns false if an edge has a
+   * corresponding symmetrical edge between two different verticies.
+   */
   public boolean isAntiSymmetric() {
     boolean antiSymmetric = true;
     for (Edge<T> edge1 : edges) {
@@ -141,6 +163,10 @@ public class Graph<T extends Comparable<T>> {
     return true;
   }
 
+  /**
+   * Checks Equivalence of graph. Return true only if the graph is reflexive AND symmetric AND
+   * transitive.
+   */
   public boolean isEquivalence() {
     if (isReflexive() && isSymmetric() && isTransitive()) {
       return true;
@@ -149,6 +175,13 @@ public class Graph<T extends Comparable<T>> {
     }
   }
 
+  /**
+   * Finds the Equivalence class for a given vertex. Returns an empty set if the graph is does not
+   * have equivalent relations. Otherwise, iterates through edges to find all verticies that the
+   * given vertex has a relation to.
+   *
+   * @param vertex The vertex for which the equivalence class is to be found for... [vertex]
+   */
   public Set<T> getEquivalenceClass(T vertex) {
     Set<T> equivalenceClass =
         new TreeSet<T>(
@@ -194,6 +227,11 @@ public class Graph<T extends Comparable<T>> {
     return equivalenceClass;
   }
 
+  /**
+   * Uses a queue data structure to perform an iterative breadth first search on the graph. One
+   * vertex is analysed at a time to find the verticies associated with that vertex until a vertex
+   * has no further relations.
+   */
   public List<T> iterativeBreadthFirstSearch() {
     List<T> visited = new ArrayList<T>();
     Queue<T> queue = new VertexQueue<T>();
@@ -216,10 +254,16 @@ public class Graph<T extends Comparable<T>> {
     return visited;
   }
 
+  /**
+   * Uses a stack data structure to perform an iterative depth first search on the graph. Edges are
+   * analysed one at a time, once a vertex has been visited it is popped, and the process continues
+   * on for the next edge.
+   */
   public List<T> iterativeDepthFirstSearch() {
     List<T> visited = new ArrayList<T>();
     Stack<T> stack = new VertexStack<T>();
     Set<T> roots = getRoots();
+    // Comparator sorts in descending order.
     Set<T> set =
         new TreeSet<T>(
             new Comparator<T>() {
@@ -258,6 +302,7 @@ public class Graph<T extends Comparable<T>> {
     return visited;
   }
 
+  /** Recursive form of the iterative breadth first search */
   public List<T> recursiveBreadthFirstSearch() {
     List<T> visited = new ArrayList<T>();
     Queue<T> queue = new VertexQueue<T>();
@@ -269,6 +314,7 @@ public class Graph<T extends Comparable<T>> {
     return BFSRecursive(visited, queue);
   }
 
+  /** Recursive form of the iterative depth first search */
   public List<T> recursiveDepthFirstSearch() {
     List<T> visited = new ArrayList<T>();
     Stack<T> stack = new VertexStack<T>();
@@ -299,6 +345,13 @@ public class Graph<T extends Comparable<T>> {
     return DFSRecursive(visited, stack);
   }
 
+  /**
+   * Helper method for Breadth First Search. Returns the set of verticies which is directly related
+   * to a given vertex. Verticies that have already been visited are left out.
+   *
+   * @param vertex Desired vertex to be analysed
+   * @param visited List of previously visited verticies
+   */
   private Set<T> BFSHelper(T vertex, List<T> visited) {
     Set<T> set =
         new TreeSet<T>(
@@ -329,6 +382,13 @@ public class Graph<T extends Comparable<T>> {
     return set;
   }
 
+  /**
+   * Helper method for Depth First Search. Returns the set of verticies which is directly related to
+   * a given vertex. Verticies that have already been visited are left out.
+   *
+   * @param vertex Desired vertex to be analysed
+   * @param visited List of previously visited verticies
+   */
   private Set<T> DFSHelper(T vertex, List<T> visited) {
     Set<T> set =
         new TreeSet<T>(
@@ -359,6 +419,12 @@ public class Graph<T extends Comparable<T>> {
     return set;
   }
 
+  /**
+   * Recursive BFS that calls itself until the queue is empty (all verticies have been analysed).
+   *
+   * @param visited Previously visited verticies
+   * @param queue The queue needed to implement BFS. Queue of verticies.
+   */
   private List<T> BFSRecursive(List<T> visited, Queue<T> queue) {
     if (queue.isEmpty()) {
       return visited;
@@ -378,6 +444,12 @@ public class Graph<T extends Comparable<T>> {
     }
   }
 
+  /**
+   * Recursive DFS that calls itself until the Stack is empty (all edges have been analysed).
+   *
+   * @param visited Previously visited verticies
+   * @param stack The stack needed to implement DFS. stack of verticies.
+   */
   private List<T> DFSRecursive(List<T> visited, Stack<T> stack) {
     if (stack.isEmpty()) {
       return visited;

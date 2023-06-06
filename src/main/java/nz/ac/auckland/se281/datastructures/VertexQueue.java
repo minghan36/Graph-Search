@@ -21,11 +21,17 @@ public class VertexQueue<T> implements Queue<T> {
     return false;
   }
 
+  /** Returns the front value of the queue without removing the node. */
   @Override
   public T front() {
     return queue.fetch(0);
   }
 
+  /**
+   * Adds the desired element to the end of the queue.
+   *
+   * @param element Desired element to be stored
+   */
   @Override
   @SuppressWarnings("unchecked")
   public void enqueue(Object element) {
@@ -33,6 +39,7 @@ public class VertexQueue<T> implements Queue<T> {
     queue.append(((T) element));
   }
 
+  /** Returns the first element in the queue and removes the element from the queue. */
   @Override
   public T dequeue() {
 
