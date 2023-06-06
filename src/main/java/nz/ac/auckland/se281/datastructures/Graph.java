@@ -1,5 +1,6 @@
 package nz.ac.auckland.se281.datastructures;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -185,8 +186,25 @@ public class Graph<T extends Comparable<T>> {
   }
 
   public List<T> iterativeBreadthFirstSearch() {
-    // TODO: Task 2.
-    throw new UnsupportedOperationException();
+    List<T> visited = new ArrayList<T>();
+    Queue<T> queue = new VertexQueue<T>();
+    Set<T> roots = getRoots();
+    for (T root:roots){
+    queue.enqueue(root);
+    }
+    while (!queue.isEmpty()){
+      Set<T> temp = BFSHelper(queue.front(), visited);
+      for (T vertex: temp){
+        queue.enqueue(vertex);
+      }
+    
+    if(visited.contains(queue.front())){
+      queue.dequeue();
+    } else{
+    visited.add(queue.dequeue());
+    }
+    }
+    return visited;
   }
 
   public List<T> iterativeDepthFirstSearch() {
@@ -202,5 +220,33 @@ public class Graph<T extends Comparable<T>> {
   public List<T> recursiveDepthFirstSearch() {
     // TODO: Task 3.
     throw new UnsupportedOperationException();
+  }
+
+  public Set<T> BFSHelper(T vertex, List<T> visited){
+    Set<T> set = new TreeSet<T>(new Comparator<T>() {
+      @Override
+      public int compare(T v1, T v2){
+        int value1 = Integer.parseInt((String) v1);
+        int value2 = Integer.parseInt((String) v2);
+        if (value1<value2){
+          return -1;
+        } else if (value1 == value2){
+          return 0;
+        } else {
+          return 1;
+        }
+      }
+    });
+
+    for (Edge<T> edge: edges){
+      if (edge.getSource().equals(vertex) && !edge.getDestination().equals(vertex)){
+        if (visited.contains(edge.getDestination())){
+          continue;
+        }
+        set.add(edge.getDestination());
+      }
+    }
+
+    return set;
   }
 }

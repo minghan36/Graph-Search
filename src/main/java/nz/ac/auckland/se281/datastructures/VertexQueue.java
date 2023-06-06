@@ -15,11 +15,10 @@ public class VertexQueue<T> implements Queue<T> {
 
     @Override
     public boolean isEmpty() {
-        if (size() == 0){
+        if (queue.getSize() == 0){
             return true;
-        } else {
-            return false;
-        }
+        } 
+        return false;
     }
 
     @Override

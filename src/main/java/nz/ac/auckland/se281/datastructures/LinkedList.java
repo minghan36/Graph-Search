@@ -23,6 +23,12 @@ public class LinkedList<T> implements List<T> {
     public void append(T data) {
     Node<T> n = new Node<T>(data);
 	n.setPrev(tail);
+    if (size == 0){
+        head = n;
+    }
+    if (size>0){
+        tail.setNext(n);
+    }
 	tail = n;
     size++;
     }
@@ -49,11 +55,17 @@ public class LinkedList<T> implements List<T> {
     public void remove(int pos){
         if (pos == 0){
             head = head.getNext();
+            if(head != null){
+            head.setPrev(null);
+            }
             size--;
             return;
         }
         if (pos == (size-1)){
             tail = tail.getPrev();
+            if(tail != null){
+                tail.setNext(null);
+                }
             size--;
         }
     }
